@@ -2,7 +2,7 @@
 {
     public sealed class Tomato : VegetableBase
     {
-        public Tomato(double cost) : base(cost)
+        public Tomato(double cost, double weight) : base(cost, weight)
         {
         }
     }

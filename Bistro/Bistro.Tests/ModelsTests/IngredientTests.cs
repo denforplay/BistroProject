@@ -2,7 +2,7 @@
 
 namespace Bistro.Tests.ModelsTests
 {
-    internal class IngredientTests
+    public sealed class IngredientTests
     {
     }
 }

@@ -4,12 +4,14 @@ using System.Linq;
 
 namespace Bistro.Lib.Models.IngridientsHandlers
 {
-    public sealed class Slicing : IIngredientHandler
+    public sealed class AddToDish : IIngredientHandler
     {
-        private IIngredient _ingredient;
+        private readonly IIngredient _ingredient;
+
         public double Cost { get; init; }
         public double Duration { get; init; }
-        public Slicing(double cost, double duration, IIngredient ingredient)
+
+        public AddToDish(double cost, double duration, IIngredient ingredient)
         {
             Cost = cost;
             Duration = duration;

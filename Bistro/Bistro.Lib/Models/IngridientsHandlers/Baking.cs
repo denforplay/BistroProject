@@ -4,12 +4,13 @@ using System.Linq;
 
 namespace Bistro.Lib.Models.IngridientsHandlers
 {
-    public sealed class Slicing : IIngredientHandler
+    public sealed class Baking : IIngredientHandler
     {
         private IIngredient _ingredient;
         public double Cost { get; init; }
         public double Duration { get; init; }
-        public Slicing(double cost, double duration, IIngredient ingredient)
+
+        public Baking(double cost, double duration, IIngredient ingredient)
         {
             Cost = cost;
             Duration = duration;
@@ -18,6 +19,7 @@ namespace Bistro.Lib.Models.IngridientsHandlers
 
         public void Handle()
         {
+
             if (_ingredient.IngredientHandlers.Any(x => x.GetType() == GetType()))
             {
                 _ingredient.Cost += Cost;

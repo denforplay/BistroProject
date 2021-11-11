@@ -11,7 +11,7 @@ namespace Bistro.Tests.ModelsTests
         [InlineData(5, 5, 5, 10)]
         public void SliceTests(double sliceCost, double sliceDuration, double ingredientCost, double expected)
         {
-            IIngredient ingredient = new Cucumber(ingredientCost);
+            IIngredient ingredient = new Cucumber(ingredientCost, 1);
             IIngredientHandler slicer = new Slicing(sliceCost, sliceDuration, ingredient);
             slicer.Handle();
             Assert.Equal(expected, ingredient.Cost);
