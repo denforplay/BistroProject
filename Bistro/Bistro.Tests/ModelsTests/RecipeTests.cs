@@ -40,19 +40,20 @@ namespace Bistro.Tests.ModelsTests
             Assert.Throws<UseRecipeWrongIngredientsException>(() => recipe.Use(ingredients));
         }
 
-        [Fact]
-        public void TestUseRecipe_ValidIngredients_ThrowsUseRecipeWringIngredientsException()
+        [Theory]
+        [InlineData(5, 5, 5, 32)]
+        public void TestUseRecipe_ValidIngredients_ThrowsUseRecipeWringIngredientsException(double cucumberCost, double tomatoCost, double ketchupCost, double expected)
         {
             RecipeBase<Salad> recipe = new SaladRecipe();
             List<IIngredient> ingredients = new List<IIngredient>()
             {
-                new Cucumber(5, 5),
-                new Tomato(5, 5),
-                new Ketchup(5, 5)
+                new Cucumber(cucumberCost, 5),
+                new Tomato(tomatoCost, 5),
+                new Ketchup(ketchupCost, 5)
             };
 
             Salad salad = recipe.Use(ingredients);
-            Assert.Equal(32, salad.Cost);
+            Assert.Equal(expected, salad.Cost);
             Assert.True(ingredients.Count == 0);
         }
     }

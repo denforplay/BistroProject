@@ -2,6 +2,7 @@
 using Bistro.Lib.Core.Extensions;
 using Bistro.Lib.Models.Dishes;
 using Bistro.Lib.Models.Ingredients;
+using Bistro.Lib.Models.IngridientsHandlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace Bistro.Lib.Models.Recipes
     {
         private string _dishName;
 
-        public NewRecipe(List<IIngredient> composition, Queue<Action> cookingSequence, string dishName)
+        public NewRecipe(List<IIngredient> composition, Queue<IIngredientHandler> cookingSequence, string dishName)
         {
             if (composition is null || composition.Count == 0)
             {
@@ -45,7 +46,7 @@ namespace Bistro.Lib.Models.Recipes
             {
                 while (_cookingSequence.Count() > 0)
                 {
-                    _cookingSequence.Dequeue().Invoke();
+                    _cookingSequence.Dequeue().Handle();
                 }
 
                 return new NewDish(5, _composition, _dishName);
