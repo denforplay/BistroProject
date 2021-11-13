@@ -11,5 +11,10 @@ namespace Bistro.Lib.Models.Dishes
         {
             _dishName = dishName;
         }
+
+        public override string ToString()
+        {
+            return $"{_dishName} with cost {Cost}";
+        }
     }
 }

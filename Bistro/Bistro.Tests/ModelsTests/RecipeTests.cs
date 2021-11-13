@@ -27,7 +27,7 @@ namespace Bistro.Tests.ModelsTests
         }
 
         [Fact]
-        public void TestUseRecipe_InvalidIngredients_ThrowsUseRecipeWringIngredientsException()
+        public void TestUseRecipe_InvalidIngredients_ThrowsUseRecipeWrongIngredientsException()
         {
             RecipeBase<Salad> recipe = new SaladRecipe();
             List<IIngredient> ingredients = new List<IIngredient>()
@@ -40,9 +40,25 @@ namespace Bistro.Tests.ModelsTests
             Assert.Throws<UseRecipeWrongIngredientsException>(() => recipe.Use(ingredients));
         }
 
+
+        [Fact]
+        public void TestUseRecipe_ValidIngredientsInvalidWeight_ThrowsUseRecipeWrongIngredientsException()
+        {
+            RecipeBase<Salad> recipe = new SaladRecipe();
+            List<IIngredient> ingredients = new List<IIngredient>()
+            {
+                new Cucumber(5, 1),
+                new Ketchup(5, 5),
+                new Tomato(5, 5)
+            };
+
+            Assert.Throws<UseRecipeWrongIngredientsException>(() => recipe.Use(ingredients));
+        }
+
         [Theory]
         [InlineData(5, 5, 5, 32)]
-        public void TestUseRecipe_ValidIngredients_ThrowsUseRecipeWringIngredientsException(double cucumberCost, double tomatoCost, double ketchupCost, double expected)
+        [InlineData(10, 10, 10, 47)]
+        public void TestUseRecipe_ValidIngredients_ThrowsUseRecipeWrongIngredientsException(double cucumberCost, double tomatoCost, double ketchupCost, double expected)
         {
             RecipeBase<Salad> recipe = new SaladRecipe();
             List<IIngredient> ingredients = new List<IIngredient>()

@@ -1,13 +1,12 @@
 ﻿using Bistro.Lib.Models.IngridientsHandlers;
 using Bistro.Lib.Models.StorageConditions;
-using System;
 using System.Collections.Generic;
 
 namespace Bistro.Lib.Models.Ingredients.Vegetables
 {
     public abstract class VegetableBase : IIngredient
     {
-        public List<IIngredientHandler> IngredientHandlers { get; init; }
+        public List<IIngredientsHandler> IngredientHandlers { get; init; }
         public double Cost { get; set; }
         public List<IStorageCondition> StoreConditions { get; init; }
         public double Weight { get; set; }
@@ -16,9 +15,9 @@ namespace Bistro.Lib.Models.Ingredients.Vegetables
         {
             Cost = cost;
             Weight = weight;
-            IngredientHandlers = new List<IIngredientHandler>
+            IngredientHandlers = new List<IIngredientsHandler>
             {
-                new Slicing(0, 0, this),
+                new Slicing(0, 0, null),
             };
 
             StoreConditions = new List<IStorageCondition>
@@ -37,6 +36,29 @@ namespace Bistro.Lib.Models.Ingredients.Vegetables
             }
 
             return false;
+        }
+
+        public override int GetHashCode()
+        {
+            int hash = 1424;
+            foreach (var handler in IngredientHandlers)
+            {
+                hash += hash * 19 + handler.GetHashCode();
+            }
+
+            hash += hash * 19 + Cost.GetHashCode();
+            hash += hash * 19 + Weight.GetHashCode();
+            foreach (var condition in StoreConditions)
+            {
+                hash += hash * 19 + condition.GetHashCode();
+            }
+
+            return hash;
+        }
+
+        public override string ToString()
+        {
+            return $"{GetType().Name} with cost {Cost} and weight {Weight}";
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Bistro.Lib.Models.Ingredients
     public interface IIngredient
     {
         List<IStorageCondition> StoreConditions { get; init; }
-        List<IIngredientHandler> IngredientHandlers { get; init; }
+        List<IIngredientsHandler> IngredientHandlers { get; init; }
         double Cost { get; set; }
         double Weight { get; set; }
     }

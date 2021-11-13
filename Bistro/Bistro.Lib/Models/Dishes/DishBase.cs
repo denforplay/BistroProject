@@ -29,5 +29,18 @@ namespace Bistro.Lib.Models.Dishes
 
             return false;
         }
+
+        public override int GetHashCode()
+        {
+            int hash = 1441;
+            hash += _cost.GetHashCode();
+            hash += _ingredients.GetHashCode();
+            return hash;
+        }
+
+        public override string ToString()
+        {
+            return $"{GetType().Name} with cost {_cost}"; 
+        }
     }
 }

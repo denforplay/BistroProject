@@ -1,32 +1,32 @@
-﻿using Bistro.Lib.Core.Exceptions;
-using Bistro.Lib.Models.Ingredients;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Bistro.Lib.Core.Exceptions;
+using Bistro.Lib.Models.Ingredients;
 
 namespace Bistro.Lib.Models.IngridientsHandlers
 {
-    public sealed class Baking : IIngredientHandler
+    public sealed class Baking : IIngredientsHandler
     {
+        public List<IIngredient> Ingredients { get; set; }
         public double Cost { get; init; }
         public double Duration { get; init; }
-        public IIngredient Ingredient { get; set; }
 
-        public Baking(double cost, double duration, IIngredient ingredient)
+        public Baking(double cost, double duration, List<IIngredient> ingredients)
         {
             Cost = cost;
             Duration = duration;
-            Ingredient = ingredient;
+            Ingredients = ingredients;
         }
 
         public void Handle()
         {
-
-            if (Ingredient.IngredientHandlers.Any(x => x.GetType() == GetType()))
+            if (Ingredients.TrueForAll(x => x.IngredientHandlers.Any(y => y.GetType() == GetType())))
             {
-                Ingredient.Cost += Cost;
+                Ingredients.ForEach(i => i.Cost += Cost);
             }
             else
             {
-                throw new InapplicableHandlerException(this, Ingredient);
+                throw new InapplicableHandlerException(this, Ingredients[0]);
             }
         }
     }

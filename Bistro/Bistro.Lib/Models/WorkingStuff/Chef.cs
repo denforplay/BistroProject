@@ -15,7 +15,7 @@ namespace Bistro.Lib.Models.WorkingStuff
         }
 
 
-        public RecipeBase<NewDish> CreateNewRecipe(List<IIngredient> composition, Queue<IIngredientHandler> cookingSequence, string dishName)
+        public RecipeBase<NewDish> CreateNewRecipe(List<IIngredient> composition, Queue<IIngredientsHandler> cookingSequence, string dishName)
         {
             RecipeBase<NewDish> recipe = new NewRecipe(composition, cookingSequence, dishName);
             return recipe;

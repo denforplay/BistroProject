@@ -7,7 +7,7 @@ namespace Bistro.Lib.Models.Ingredients.Meat
     public abstract class MeatBase : IIngredient
     {
         public List<IStorageCondition> StoreConditions { get; init; }
-        public List<IIngredientHandler> IngredientHandlers { get; init; }
+        public List<IIngredientsHandler> IngredientHandlers { get; init; }
         public double Cost { get; set; }
         public double Weight { get; set; }
         public MeatBase(double cost, double weight)
@@ -20,9 +20,10 @@ namespace Bistro.Lib.Models.Ingredients.Meat
                 new MoistureCondition(85, 90)
             };
 
-            IngredientHandlers = new List<IIngredientHandler>()
+            IngredientHandlers = new List<IIngredientsHandler>()
             {
-                new Slicing(5, 5, this),
+                new Slicing(5, 5, null),
+                new Baking(10, 10, null),
             };
         }
 
@@ -40,10 +41,18 @@ namespace Bistro.Lib.Models.Ingredients.Meat
         public override int GetHashCode()
         {
             int hash = 1222;
-            hash += Weight.GetHashCode();
-            hash += Cost.GetHashCode();
-            hash += StoreConditions.GetHashCode();
-            hash += IngredientHandlers.GetHashCode();
+            foreach (var handler in IngredientHandlers)
+            {
+                hash += hash * 12 + handler.GetHashCode();
+            }
+
+            hash += hash * 12 + Cost.GetHashCode();
+            hash += hash * 12 + Weight.GetHashCode();
+            foreach (var condition in StoreConditions)
+            {
+                hash += hash * 12 + condition.GetHashCode();
+            }
+
             return hash;
         }
 

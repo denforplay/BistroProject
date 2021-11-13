@@ -25,6 +25,30 @@ namespace Bistro.Lib.Core.Extensions
 
             return true;
         }
+        
+        public static List<T> FindList<T>(this List<T> currentCollection, List<T> otherCollection)
+        {
+            if (otherCollection is null)
+            {
+                throw new ArgumentNullException(nameof(otherCollection));
+            }
+
+            List<T> findedList = new List<T>();
+            List<T> currentCollectionCopy = new List<T>(currentCollection);
+            for (int i = 0; i < otherCollection.Count; i++)
+            {
+                var item = currentCollectionCopy.Find(x => x.Equals(otherCollection[i]));
+                if (item is not null)
+                {
+                    findedList.Add(item);
+                    currentCollectionCopy.Remove(item);
+                }
+                else
+                    return null;
+            }
+
+            return findedList;
+        }
 
         public static bool IsExcept<T>(this List<T> currentCollection, List<T> otherCollection)
         {

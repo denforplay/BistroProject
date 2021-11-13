@@ -22,9 +22,9 @@ namespace Bistro.Lib.Models.Recipes
                 new Ketchup(5, 5)
             };
 
-            _cookingSequence.Enqueue(new Slicing(5, 5, _composition[0]));
-            _cookingSequence.Enqueue(new Slicing(3, 3, _composition[1]));
-            _cookingSequence.Enqueue(new AddToDish(4, 4, _composition[2]));
+            _cookingSequence.Enqueue(new Slicing(5, 5, new List<IIngredient>{_composition[0]}));
+            _cookingSequence.Enqueue(new Slicing(3, 3,new List<IIngredient>{_composition[1]}));
+            _cookingSequence.Enqueue(new AddingToDish(4, 4, new List<IIngredient>{_composition[2]}));
         }
 
         public override Salad Use(List<IIngredient> ingredients)
@@ -37,22 +37,22 @@ namespace Bistro.Lib.Models.Recipes
             if (_composition.IsExcept(ingredients))
             {
                 List<IIngredient> saladIngredients = new List<IIngredient>();
-                while (_cookingSequence.Count() > 0)
+                while (_cookingSequence.Any())
                 {
                     var method = _cookingSequence.Dequeue();
-                    var ingredient = ingredients.Find(x => x.Equals(method.Ingredient));
-                    method.Ingredient = ingredient;
+                    var findedIngredients = ingredients.FindList(method.Ingredients);
+                    if (findedIngredients is null)
+                        throw new UseRecipeWrongIngredientsException();
+                    method.Ingredients = findedIngredients;
                     method.Handle();
-                    saladIngredients.Add(ingredient);
-                    ingredients.Remove(ingredient);
+                    findedIngredients.ForEach(x => saladIngredients.Add(x));
+                    findedIngredients.ForEach(x => ingredients.Remove(x));
                 }
 
                 return new Salad(5, saladIngredients);
             }
-            else
-            {
-                throw new UseRecipeWrongIngredientsException();
-            }
+
+            throw new UseRecipeWrongIngredientsException();
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Bistro.Lib.Models.Recipes
     {
         private string _dishName;
 
-        public NewRecipe(List<IIngredient> composition, Queue<IIngredientHandler> cookingSequence, string dishName)
+        public NewRecipe(List<IIngredient> composition, Queue<IIngredientsHandler> cookingSequence, string dishName)
         {
             if (composition is null || composition.Count == 0)
             {

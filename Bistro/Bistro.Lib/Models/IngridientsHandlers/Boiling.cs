@@ -1,17 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using Bistro.Lib.Models.Ingredients;
+using System.Collections.Generic;
 using System.Linq;
 using Bistro.Lib.Core.Exceptions;
-using Bistro.Lib.Models.Ingredients;
 
 namespace Bistro.Lib.Models.IngridientsHandlers
 {
-    public sealed class Slicing : IIngredientsHandler
+    public sealed class Boiling : IIngredientsHandler
     {
         public List<IIngredient> Ingredients { get; set; }
         public double Cost { get; init; }
         public double Duration { get; init; }
 
-        public Slicing(double cost, double duration, List<IIngredient> ingredients)
+        public Boiling(double cost, double duration, List<IIngredient> ingredients)
         {
             Cost = cost;
             Duration = duration;

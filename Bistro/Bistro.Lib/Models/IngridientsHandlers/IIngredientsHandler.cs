@@ -1,10 +1,12 @@
 ﻿using Bistro.Lib.Models.Ingredients;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Bistro.Lib.Models.IngridientsHandlers
 {
-    public interface IIngredientHandler
+    public interface IIngredientsHandler
     {
-        IIngredient Ingredient { get; set; }
+        List<IIngredient> Ingredients { get; set; }
         double Cost { get; init; }
         double Duration { get; init; }
         void Handle();

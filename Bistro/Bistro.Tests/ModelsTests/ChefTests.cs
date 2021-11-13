@@ -5,7 +5,6 @@ using Bistro.Lib.Models.Ingredients.Vegetables;
 using Bistro.Lib.Models.IngridientsHandlers;
 using Bistro.Lib.Models.Recipes;
 using Bistro.Lib.Models.WorkingStuff;
-using System;
 using System.Collections.Generic;
 using Xunit;
 
@@ -31,7 +30,7 @@ namespace Bistro.Tests.ModelsTests
         public void TestCreateNewRecipe()
         {
             Chef chef = new Chef();
-        
+         
             List<IIngredient> composition = new List<IIngredient>
             {
                 new Cucumber(5, 5),
@@ -39,12 +38,14 @@ namespace Bistro.Tests.ModelsTests
                 new Chicken(10, 5)
             };
 
-            Queue<IIngredientHandler> cookingSequence = new Queue<IIngredientHandler>();
-            cookingSequence.Enqueue(new Baking(10, 10, composition[0]));
-            cookingSequence.Enqueue(new Slicing(5, 5, composition[1]));
-            cookingSequence.Enqueue(new Slicing(5, 5, composition[2]));
+            Queue<IIngredientsHandler> cookingSequence = new Queue<IIngredientsHandler>();
+            cookingSequence.Enqueue(new Baking(10, 10, new List<IIngredient>{composition[2]}));
+            cookingSequence.Enqueue(new Slicing(5, 5, new List<IIngredient>{composition[0]}));
+            cookingSequence.Enqueue(new Slicing(5, 5, new List<IIngredient>{composition[1]}));
 
-            Assert.True(chef.CreateNewRecipe(composition, cookingSequence, "Chicken with vegetables") is NewRecipe);
+            var newRecipe = chef.CreateNewRecipe(composition, cookingSequence, "Chicken with vegetables");
+            Assert.True(newRecipe is NewRecipe);
+            var dish = chef.Cook(newRecipe, composition);
         }
     }
 }
