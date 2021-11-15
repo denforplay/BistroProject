@@ -1,6 +1,8 @@
-﻿using Bistro.Lib.Models.IngridientsHandlers;
+﻿using Bistro.Lib.Core.Enums;
 using Bistro.Lib.Models.StorageConditions;
 using System.Collections.Generic;
+using Bistro.Lib.Models.IngredientsHandlers;
+using Bistro.Lib.Models.IngredientsHandlers.Base;
 
 namespace Bistro.Lib.Models.Ingredients.Meat
 {
@@ -17,7 +19,8 @@ namespace Bistro.Lib.Models.Ingredients.Meat
             StoreConditions = new List<IStorageCondition>()
             {
                 new TemperatureCondition(0, 5),
-                new MoistureCondition(85, 90)
+                new MoistureCondition(85, 90),
+                new PackageCondition(PackageType.ClosedContainer)
             };
 
             IngredientHandlers = new List<IIngredientsHandler>()

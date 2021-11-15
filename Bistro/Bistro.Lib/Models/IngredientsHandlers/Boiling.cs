@@ -2,16 +2,17 @@
 using System.Linq;
 using Bistro.Lib.Core.Exceptions;
 using Bistro.Lib.Models.Ingredients;
+using Bistro.Lib.Models.IngredientsHandlers.Base;
 
-namespace Bistro.Lib.Models.IngridientsHandlers
+namespace Bistro.Lib.Models.IngredientsHandlers
 {
-    public sealed class Baking : IIngredientsHandler
+    public sealed class Boiling : IIngredientsHandler
     {
         public List<IIngredient> Ingredients { get; set; }
         public double Cost { get; init; }
         public double Duration { get; init; }
 
-        public Baking(double cost, double duration, List<IIngredient> ingredients)
+        public Boiling(double cost, double duration, List<IIngredient> ingredients)
         {
             Cost = cost;
             Duration = duration;

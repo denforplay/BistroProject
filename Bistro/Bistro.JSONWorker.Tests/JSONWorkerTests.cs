@@ -1,13 +1,13 @@
-﻿using Bistro.Lib.Models;
-using Bistro.Lib.Models.Dishes;
-using Bistro.Lib.Models.Ingredients;
+﻿using Bistro.Lib.Models.Ingredients;
 using Bistro.Lib.Models.Ingredients.Meat;
 using Bistro.Lib.Models.Ingredients.Sauses;
 using Bistro.Lib.Models.Ingredients.Vegetables;
-using Bistro.Lib.Models.IngridientsHandlers;
 using Bistro.Lib.Models.Recipes;
 using JSONLib.Models;
 using System.Collections.Generic;
+using Bistro.Lib.Models.IngredientsHandlers;
+using Bistro.Lib.Models.IngredientsHandlers.Base;
+using Bistro.Lib.Models.Recipes.SaladRecipes;
 using Xunit;
 
 namespace Bistro.JSONWorker.Tests
@@ -20,7 +20,7 @@ namespace Bistro.JSONWorker.Tests
             string filepath = @"C:\Test\test.json";
             JsonWorker json = new JsonWorker(filepath);
             IIngredient expectedTomato = new Tomato(20, 20);
-            IIngredientsHandler handler = new Slicing(5, 5, expectedTomato);
+            IIngredientsHandler handler = new Slicing(5, 5, new List<IIngredient> { expectedTomato });
             json.Serialize(expectedTomato);
             Tomato actualTomato = json.Deserialize<Tomato>();
             Assert.Equal(expectedTomato, actualTomato);
@@ -31,9 +31,9 @@ namespace Bistro.JSONWorker.Tests
         {
             string filepath = @"C:\Test\test.json";
             JsonWorker json = new JsonWorker(filepath);
-            var expectedRecipe = new SaladRecipe();
+            var expectedRecipe = new VegetableSaladRecipe();
             json.Serialize(expectedRecipe);
-            var actualRecipe = json.Deserialize<SaladRecipe>();
+            var actualRecipe = json.Deserialize<VegetableSaladRecipe>();
             Assert.Equal(expectedRecipe, actualRecipe);
         }
 
@@ -49,8 +49,8 @@ namespace Bistro.JSONWorker.Tests
             };
 
             Queue<IIngredientsHandler> cookingSequence = new Queue<IIngredientsHandler>();
-            cookingSequence.Enqueue(new Baking(10, 10, composition[0]));
-            cookingSequence.Enqueue(new AddingToDish(10, 10, composition[1]));
+            cookingSequence.Enqueue(new Baking(10, 10, new List<IIngredient> { composition[0] }));
+            cookingSequence.Enqueue(new AddingToDish(10, 10, new List<IIngredient> { composition[1] }));
             var expectedRecipe = new NewRecipe(composition, cookingSequence, "Chicken with kechup");
             json.Serialize(expectedRecipe);
             var actualRecipe = json.Deserialize<NewRecipe>();

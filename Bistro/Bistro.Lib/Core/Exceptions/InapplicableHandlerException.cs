@@ -1,6 +1,7 @@
 ﻿using Bistro.Lib.Models.Ingredients;
-using Bistro.Lib.Models.IngridientsHandlers;
 using System;
+using Bistro.Lib.Models.IngredientsHandlers;
+using Bistro.Lib.Models.IngredientsHandlers.Base;
 
 namespace Bistro.Lib.Core.Exceptions
 {

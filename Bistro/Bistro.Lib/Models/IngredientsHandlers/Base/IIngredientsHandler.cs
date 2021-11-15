@@ -1,8 +1,7 @@
-﻿using Bistro.Lib.Models.Ingredients;
-using System.Collections.Generic;
-using System.Text.Json.Serialization;
+﻿using System.Collections.Generic;
+using Bistro.Lib.Models.Ingredients;
 
-namespace Bistro.Lib.Models.IngridientsHandlers
+namespace Bistro.Lib.Models.IngredientsHandlers.Base
 {
     public interface IIngredientsHandler
     {

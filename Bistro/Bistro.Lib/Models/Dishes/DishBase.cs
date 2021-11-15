@@ -9,7 +9,11 @@ namespace Bistro.Lib.Models.Dishes
     {
         private List<IIngredient> _ingredients;
         private double _cost;
-      
+
+        public DishBase()
+        {
+        }
+        
         public DishBase(double dishCost, List<IIngredient> ingredients)
         {
             _ingredients = ingredients;

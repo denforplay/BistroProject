@@ -6,6 +6,8 @@ using Bistro.Lib.Models.Ingredients.Vegetables;
 using Bistro.Lib.Models.Recipes;
 using System;
 using System.Collections.Generic;
+using Bistro.Lib.Models.Recipes.Base;
+using Bistro.Lib.Models.Recipes.SaladRecipes;
 using Xunit;
 
 namespace Bistro.Tests.ModelsTests
@@ -15,21 +17,21 @@ namespace Bistro.Tests.ModelsTests
         [Fact]
         public void TestUseRecipe_NullIngredients_ThrowsArgumentNullException()
         {
-            RecipeBase<Salad> recipe = new SaladRecipe();
+            RecipeBase<Salad> recipe = new VegetableSaladRecipe();
             Assert.Throws<ArgumentNullException>(() => recipe.Use(null));
         }
 
         [Fact]
         public void TestUseRecipe_EmptyIngredients_ThrowsArgumentNullException()
         {
-            RecipeBase<Salad> recipe = new SaladRecipe();
+            RecipeBase<Salad> recipe = new VegetableSaladRecipe();
             Assert.Throws<ArgumentNullException>(() => recipe.Use(new List<IIngredient>()));
         }
 
         [Fact]
         public void TestUseRecipe_InvalidIngredients_ThrowsUseRecipeWrongIngredientsException()
         {
-            RecipeBase<Salad> recipe = new SaladRecipe();
+            RecipeBase<Salad> recipe = new VegetableSaladRecipe();
             List<IIngredient> ingredients = new List<IIngredient>()
             {
                 new Cucumber(5, 5),
@@ -44,7 +46,7 @@ namespace Bistro.Tests.ModelsTests
         [Fact]
         public void TestUseRecipe_ValidIngredientsInvalidWeight_ThrowsUseRecipeWrongIngredientsException()
         {
-            RecipeBase<Salad> recipe = new SaladRecipe();
+            RecipeBase<Salad> recipe = new VegetableSaladRecipe();
             List<IIngredient> ingredients = new List<IIngredient>()
             {
                 new Cucumber(5, 1),
@@ -60,7 +62,7 @@ namespace Bistro.Tests.ModelsTests
         [InlineData(10, 10, 10, 47)]
         public void TestUseRecipe_ValidIngredients_ThrowsUseRecipeWrongIngredientsException(double cucumberCost, double tomatoCost, double ketchupCost, double expected)
         {
-            RecipeBase<Salad> recipe = new SaladRecipe();
+            RecipeBase<Salad> recipe = new VegetableSaladRecipe();
             List<IIngredient> ingredients = new List<IIngredient>()
             {
                 new Cucumber(cucumberCost, 5),

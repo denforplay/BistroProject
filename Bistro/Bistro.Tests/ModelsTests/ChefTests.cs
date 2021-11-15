@@ -2,10 +2,12 @@
 using Bistro.Lib.Models.Ingredients.Meat;
 using Bistro.Lib.Models.Ingredients.Sauses;
 using Bistro.Lib.Models.Ingredients.Vegetables;
-using Bistro.Lib.Models.IngridientsHandlers;
 using Bistro.Lib.Models.Recipes;
 using Bistro.Lib.Models.WorkingStuff;
 using System.Collections.Generic;
+using Bistro.Lib.Models.IngredientsHandlers;
+using Bistro.Lib.Models.IngredientsHandlers.Base;
+using Bistro.Lib.Models.Recipes.SaladRecipes;
 using Xunit;
 
 namespace Bistro.Tests.ModelsTests
@@ -23,7 +25,7 @@ namespace Bistro.Tests.ModelsTests
                 new Tomato(5, 5)
             };
 
-            Assert.Equal(32, chef.Cook(new SaladRecipe(), ingredients).Cost);
+            Assert.Equal(32, chef.Cook(new VegetableSaladRecipe(), ingredients).Cost);
         }
 
         [Fact]

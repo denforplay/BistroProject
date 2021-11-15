@@ -2,10 +2,12 @@
 using Bistro.Lib.Core.Extensions;
 using Bistro.Lib.Models.Dishes;
 using Bistro.Lib.Models.Ingredients;
-using Bistro.Lib.Models.IngridientsHandlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Bistro.Lib.Models.IngredientsHandlers;
+using Bistro.Lib.Models.IngredientsHandlers.Base;
+using Bistro.Lib.Models.Recipes.Base;
 
 namespace Bistro.Lib.Models.Recipes
 {
@@ -30,8 +32,8 @@ namespace Bistro.Lib.Models.Recipes
                 throw new ArgumentNullException(nameof(dishName));
             }
 
-            _composition = composition;
-            _cookingSequence = cookingSequence;
+            Composition = composition;
+            CookingSequence = cookingSequence;
             _dishName = dishName;
         }
 
@@ -42,19 +44,7 @@ namespace Bistro.Lib.Models.Recipes
                 throw new ArgumentNullException();
             }
 
-            if (_composition.IsExcept(ingredients))
-            {
-                while (_cookingSequence.Count() > 0)
-                {
-                    _cookingSequence.Dequeue().Handle();
-                }
-
-                return new NewDish(5, _composition, _dishName);
-            }
-            else
-            {
-                throw new UseRecipeWrongIngredientsException();
-            }
+            return new NewDish(5, CookIngredients(ingredients), _dishName);
         }
     }
 }

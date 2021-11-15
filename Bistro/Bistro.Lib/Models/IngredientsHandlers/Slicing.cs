@@ -2,8 +2,9 @@
 using System.Linq;
 using Bistro.Lib.Core.Exceptions;
 using Bistro.Lib.Models.Ingredients;
+using Bistro.Lib.Models.IngredientsHandlers.Base;
 
-namespace Bistro.Lib.Models.IngridientsHandlers
+namespace Bistro.Lib.Models.IngredientsHandlers
 {
     public sealed class Slicing : IIngredientsHandler
     {

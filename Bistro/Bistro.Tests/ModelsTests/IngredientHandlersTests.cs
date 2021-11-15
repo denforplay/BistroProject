@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using Bistro.Lib.Models.Ingredients;
 using Bistro.Lib.Models.Ingredients.Vegetables;
-using Bistro.Lib.Models.IngridientsHandlers;
+using Bistro.Lib.Models.IngredientsHandlers;
+using Bistro.Lib.Models.IngredientsHandlers.Base;
 using Xunit;
 
 namespace Bistro.Tests.ModelsTests
