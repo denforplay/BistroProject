@@ -18,9 +18,7 @@ namespace Bistro.Lib.Models.IngredientsHandlers.Base
 
         public IngredientHandlerBase(double cost, double duration, List<IIngredient> ingredients)
         {
-            if (ingredients is not null)
-                Ingredients = ingredients;
-            
+            Ingredients = ingredients;
             Cost = cost;
             Duration = duration;
         }
@@ -45,6 +43,17 @@ namespace Bistro.Lib.Models.IngredientsHandlers.Base
         public virtual void Handle()
         {
             Ingredients.ForEach(i => i.Cost += Cost);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is IngredientHandlerBase ingredientHandler)
+            {
+                return GetType() == ingredientHandler.GetType()
+                    && Duration == ingredientHandler.Duration;
+            }
+
+            return false;
         }
     }
 }

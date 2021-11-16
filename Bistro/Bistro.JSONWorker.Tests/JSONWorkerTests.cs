@@ -34,7 +34,7 @@ namespace Bistro.JSONWorker.Tests
             var expectedRecipe = new VegetableSaladRecipe();
             json.Serialize(expectedRecipe);
             var actualRecipe = json.Deserialize<VegetableSaladRecipe>();
-            Assert.Equal(expectedRecipe, actualRecipe);
+            Assert.True(expectedRecipe.Equals(actualRecipe));
         }
 
         [Fact]

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Bistro.Lib.Core.Exceptions;
 using Bistro.Lib.Core.Extensions;
 using Bistro.Lib.Models.Bistro.Conditions;
 using Bistro.Lib.Models.Ingredients;
@@ -29,14 +31,23 @@ namespace Bistro.Lib.Models.Bistro.Storage
 
         public void Add(Type entity, List<IIngredient> ingredients)
         {
-            if (_ingredients.TryGetValue(entity, out List<IIngredient> findedIngredients))
+            if (ingredients.TrueForAll(i => i.StoreConditions.Any(s => _storageConditions.GetAll().Any(x => x.Equals(s)))))
             {
-                findedIngredients.AddRange(ingredients);
+                if (_ingredients.TryGetValue(entity, out List<IIngredient> findedIngredients))
+                {
+                    findedIngredients.AddRange(ingredients);
+                }
+                else
+                {
+
+                    _ingredients.Add(entity, ingredients);
+                }
             }
             else
             {
-                _ingredients.Add(entity, ingredients);
+                throw new InapplicableIngredientException();
             }
+               
         }
 
         public void Delete(Type entity, List<IIngredient> ingredient)

@@ -9,6 +9,7 @@ namespace JSONLib.Models
         private JsonSerializerSettings _jsonSettings = new JsonSerializerSettings
         {
             TypeNameHandling = TypeNameHandling.Auto,
+            ObjectCreationHandling = ObjectCreationHandling.Replace
         };
 
         public JsonWorker(string filepath)
@@ -27,7 +28,9 @@ namespace JSONLib.Models
 
         public T Deserialize<T>() where T : class
         {
-            return JsonConvert.DeserializeObject<T>(File.ReadAllText(_filepath), _jsonSettings);
+            string readed = File.ReadAllText(_filepath);
+            T result = JsonConvert.DeserializeObject<T>(readed, _jsonSettings);
+            return result;
         }
     }
 }

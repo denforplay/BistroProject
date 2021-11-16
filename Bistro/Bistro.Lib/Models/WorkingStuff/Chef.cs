@@ -11,7 +11,7 @@ namespace Bistro.Lib.Models.WorkingStuff
 {
     public sealed class Chef
     {
-        public T Cook<T>(RecipeBase<T> recipe, List<IIngredient> ingredients) where T : DishBase
+        public T Cook<T>(IRecipe<T> recipe, List<IIngredient> ingredients) where T : DishBase
         {
             if (recipe is null)
             {

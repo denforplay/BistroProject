@@ -50,7 +50,7 @@ namespace Bistro.Lib.Models.Recipes.Base
             if (obj is RecipeBase<T> otherRecipe)
             {
                 return Composition.IsEqual(otherRecipe.Composition)
-                    && CookingSequence.Equals(otherRecipe.CookingSequence);
+                    && CookingSequence.IsEqual(otherRecipe.CookingSequence);
             }
 
             return false;

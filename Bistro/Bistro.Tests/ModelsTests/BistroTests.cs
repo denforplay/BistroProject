@@ -14,6 +14,9 @@ using Bistro.Lib.Core.Enums;
 using Bistro.Lib.Models.Bistro.Storage;
 using Bistro.Lib.Models.Ingredients.Sauses;
 using Bistro.Lib.Models.Recipes.SaladRecipes;
+using Bistro.Lib.Models.WorkingStuff;
+using Bistro.Lib.Models.Bistro.Menu;
+using Bistro.Lib.Models.Recipes.Base;
 
 namespace Bistro.Tests.ModelsTests
 {
@@ -25,12 +28,18 @@ namespace Bistro.Tests.ModelsTests
             { typeof(PackageCondition), new List<IStorageCondition>{new PackageCondition(PackageType.ClosedContainer)} },
         });
         
-        private ProductionCapabilities capabilities = new ProductionCapabilities(new Dictionary<Type, int>
+        private ProductionCapabilities _capabilities = new ProductionCapabilities(new Dictionary<Type, int>
         {
             {typeof(Baking), 5},
             {typeof(Slicing), 5},
             {typeof(AddingToDish), 10},
             {typeof(Boiling), 10},
+        });
+
+        private BistroMenu _bistroMenu = new BistroMenu(new Dictionary<Type, IRecipe<DishBase>>
+        {
+            { typeof(ChickenSaladRecipe), new ChickenSaladRecipe()},
+            { typeof(VegetableSaladRecipe), new VegetableSaladRecipe()},
         });
 
         [Fact]
@@ -43,8 +52,10 @@ namespace Bistro.Tests.ModelsTests
                 {
                     {typeof(SauсeBase), new List<IIngredient> { new Ketchup(5, 5), } }
                 }, _storageConditions);
+
+            Kitchen kitchen = new Kitchen(new Chef(), storage, _capabilities);
             
-            BistroShop bistro = new BistroShop(storage, capabilities);
+            BistroShop bistro = new BistroShop(kitchen, _bistroMenu);
             bistro.TakeOrder(new Order(0, new List<Type>
             {
                 typeof(VegetableSaladRecipe),

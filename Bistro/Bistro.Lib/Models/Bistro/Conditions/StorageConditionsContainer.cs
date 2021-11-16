@@ -35,6 +35,17 @@ namespace Bistro.Lib.Models.Bistro.Conditions
             }
         }
 
+        public List<IStorageCondition> GetAll()
+        {
+            List<IStorageCondition> storageConditions = new List<IStorageCondition>();
+            foreach (var value in _storageConditions.Values)
+            {
+                storageConditions.AddRange(value);
+            }
+
+            return storageConditions;
+        }
+
         public List<IStorageCondition> GetByKey(Type key)
         {
             return _storageConditions[key];

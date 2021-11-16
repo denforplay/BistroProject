@@ -17,20 +17,15 @@ namespace Bistro.Lib.Models.Bistro
     public sealed class BistroShop
     {
         private Manager _manager;
-        private Chef _chief;
-        private IngredientStorage _storage;
+        private Kitchen _kitchen;
         private List<DishBase> _readyDishes;
         private BistroMenu _menu;
 
-        public BistroShop(IngredientStorage storage, ProductionCapabilities productionCapabilities)
+        public BistroShop(Kitchen kitchen, BistroMenu menu)
         {
-            _storage = storage;
-            _menu = new BistroMenu(new Dictionary<Type, Recipes.Base.IRecipe<DishBase>>
-            {
-                { typeof(VegetableSaladRecipe), new VegetableSaladRecipe() },
-                { typeof(ChickenSaladRecipe), new ChickenSaladRecipe() }
-            });
             _manager = new Manager();
+            _kitchen = kitchen;
+            _menu = menu;
         }
 
         public void TakeOrder(Order order)
@@ -102,7 +97,7 @@ namespace Bistro.Lib.Models.Bistro
 
         public List<IIngredient> FindIngredients(List<IStorageCondition> storageCondition)
         {
-            return _storage.GetAll().FindAll(i => i.StoreConditions.IsExcept(storageCondition));
+            return _kitchen.IngredientStorage.GetAll().FindAll(i => i.StoreConditions.IsExcept(storageCondition));
         }
 
         public void SellDish(DishBase dish)
