@@ -25,9 +25,9 @@ namespace Bistro.Lib.Models.Ingredients.Meat
 
             IngredientHandlers = new List<IIngredientsHandler>()
             {
-                new Slicing(5, 5, null),
-                new Baking(10, 10, null),
-                new AddingToDish(5, 5, null)
+                new Slicing(),
+                new Baking(),
+                new AddingToDish()
             };
         }
 

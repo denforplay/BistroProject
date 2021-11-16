@@ -18,8 +18,8 @@ namespace Bistro.Lib.Models.Ingredients.Vegetables
             Weight = weight;
             IngredientHandlers = new List<IIngredientsHandler>
             {
-                new Slicing(0, 0, null),
-                new AddingToDish(0, 0, null)
+                new Slicing(),
+                new AddingToDish(),
             };
 
             StoreConditions = new List<IStorageCondition>

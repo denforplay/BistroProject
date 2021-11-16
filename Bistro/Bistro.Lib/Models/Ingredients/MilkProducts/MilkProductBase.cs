@@ -23,7 +23,7 @@ namespace Bistro.Lib.Models.Ingredients.MilkProducts
 
             IngredientHandlers = new List<IIngredientsHandler>()
             {
-                new AddingToDish(0, 0, null),
+                new AddingToDish(),
             };
         }
 

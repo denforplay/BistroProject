@@ -9,6 +9,13 @@ namespace Bistro.Lib.Models.IngredientsHandlers.Base
     {
         private List<IIngredient> _ingredients;
 
+        public IngredientHandlerBase()
+        {
+            Cost = 0;
+            Duration = 0;
+            _ingredients = new List<IIngredient>();
+        }
+
         public IngredientHandlerBase(double cost, double duration, List<IIngredient> ingredients)
         {
             if (ingredients is not null)
@@ -18,7 +25,8 @@ namespace Bistro.Lib.Models.IngredientsHandlers.Base
             Duration = duration;
         }
         
-        public List<IIngredient> Ingredients { 
+        public List<IIngredient> Ingredients
+        {
             get => _ingredients;
             set
             {
@@ -30,7 +38,8 @@ namespace Bistro.Lib.Models.IngredientsHandlers.Base
                 {
                     throw new InapplicableHandlerException(this, value[0]);
                 }
-            }}
+            }
+        }
         public double Cost { get; init; }
         public double Duration { get; init; }
         public virtual void Handle()

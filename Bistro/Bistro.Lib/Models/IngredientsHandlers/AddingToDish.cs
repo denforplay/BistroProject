@@ -8,6 +8,10 @@ namespace Bistro.Lib.Models.IngredientsHandlers
 {
     public sealed class AddingToDish : IngredientHandlerBase
     {
+        public AddingToDish()
+        {
+        }
+
         public AddingToDish(double cost, double duration, List<IIngredient> ingredients) : base(cost, duration, ingredients)
         {
         }
