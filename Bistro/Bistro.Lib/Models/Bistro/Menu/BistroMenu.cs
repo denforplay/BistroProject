@@ -1,13 +1,13 @@
-﻿using Bistro.Lib.Models.Dishes;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Bistro.Lib.Models.Dishes;
 using Bistro.Lib.Models.Recipes.Base;
-using Bistro.Lib.Models.Bistro.Menu;
-namespace Bistro.Lib.Models.Bistro
+
+namespace Bistro.Lib.Models.Bistro.Menu
 {
     public sealed class BistroMenu : IMenuRepository
     {
-        private Dictionary<Type, IRecipe<DishBase>> _menu;
+        private readonly Dictionary<Type, IRecipe<DishBase>> _menu;
 
         public BistroMenu()
         {
@@ -26,7 +26,7 @@ namespace Bistro.Lib.Models.Bistro
 
         public void Add(Type dishType, IRecipe<DishBase> dishRecipe)
         {
-            if (_menu.TryGetValue(dishType, out IRecipe<DishBase> recipe))
+            if (_menu.TryGetValue(dishType, out IRecipe<DishBase> _))
             {
                 return;
             }
@@ -36,14 +36,12 @@ namespace Bistro.Lib.Models.Bistro
 
         public void Delete(Type dishType, IRecipe<DishBase> dishRecipe)
         {
-            if (_menu.TryGetValue(dishType, out IRecipe<DishBase> recipe))
+            if (_menu.TryGetValue(dishType, out IRecipe<DishBase> _))
             {
                 return;
             }
 
             _menu.Remove(dishType);
         }
-
-
     }
 }

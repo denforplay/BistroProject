@@ -13,12 +13,37 @@ namespace Bistro.Lib.Models.WorkingStuff
     {
         public T Cook<T>(RecipeBase<T> recipe, List<IIngredient> ingredients) where T : DishBase
         {
+            if (recipe is null)
+            {
+                throw new ArgumentNullException(nameof(recipe));
+            }
+
+            if (ingredients is null || ingredients.Count == 0)
+            {
+                throw new ArgumentNullException(nameof(ingredients));
+            }
+            
             return recipe.Use(ingredients);
         }
 
 
         public RecipeBase<NewDish> CreateNewRecipe(List<IIngredient> composition, Queue<IIngredientsHandler> cookingSequence, string dishName)
         {
+            if (composition is null || composition.Count == 0)
+            {
+                throw new ArgumentNullException(nameof(composition));
+            }
+
+            if (cookingSequence is null || cookingSequence.Count == 0)
+            {
+                throw new ArgumentNullException(nameof(cookingSequence));
+            }
+
+            if (String.IsNullOrEmpty(dishName))
+            {
+                throw new ArgumentNullException(nameof(dishName));
+            }
+            
             RecipeBase<NewDish> recipe = new NewRecipe(composition, cookingSequence, dishName);
             return recipe;
         }

@@ -27,6 +27,7 @@ namespace Bistro.Lib.Models.Ingredients.Meat
             {
                 new Slicing(5, 5, null),
                 new Baking(10, 10, null),
+                new AddingToDish(5, 5, null)
             };
         }
 

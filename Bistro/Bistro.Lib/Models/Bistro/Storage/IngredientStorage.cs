@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using Bistro.Lib.Core.Extensions;
-using Bistro.Lib.Core.Interfaces;
 using Bistro.Lib.Models.Bistro.Conditions;
 using Bistro.Lib.Models.Ingredients;
 
-namespace Bistro.Lib.Models.Bistro
+namespace Bistro.Lib.Models.Bistro.Storage
 {
     public sealed class IngredientStorage : IIngredientRepository
     {

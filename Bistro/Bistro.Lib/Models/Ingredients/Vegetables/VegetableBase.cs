@@ -19,6 +19,7 @@ namespace Bistro.Lib.Models.Ingredients.Vegetables
             IngredientHandlers = new List<IIngredientsHandler>
             {
                 new Slicing(0, 0, null),
+                new AddingToDish(0, 0, null)
             };
 
             StoreConditions = new List<IStorageCondition>

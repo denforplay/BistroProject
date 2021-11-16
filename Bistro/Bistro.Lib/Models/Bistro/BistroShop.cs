@@ -8,6 +8,9 @@ using System.Linq;
 using Bistro.Lib.Core.Interfaces;
 using Bistro.Lib.Models.Bistro.Capabilities;
 using Bistro.Lib.Core.Extensions;
+using Bistro.Lib.Models.Bistro.Menu;
+using Bistro.Lib.Models.Bistro.Storage;
+using Bistro.Lib.Models.Recipes.SaladRecipes;
 
 namespace Bistro.Lib.Models.Bistro
 {
@@ -22,7 +25,11 @@ namespace Bistro.Lib.Models.Bistro
         public BistroShop(IngredientStorage storage, ProductionCapabilities productionCapabilities)
         {
             _storage = storage;
-            _menu = new BistroMenu();
+            _menu = new BistroMenu(new Dictionary<Type, Recipes.Base.IRecipe<DishBase>>
+            {
+                { typeof(VegetableSaladRecipe), new VegetableSaladRecipe() },
+                { typeof(ChickenSaladRecipe), new ChickenSaladRecipe() }
+            });
             _manager = new Manager();
         }
 
@@ -47,7 +54,7 @@ namespace Bistro.Lib.Models.Bistro
                             productsFrequency.Add(ingridient.GetType(), 1);
                         }
 
-            return productsFrequency.OrderBy(x => x.Value).ToDictionary(x => x.Key, y => y.Value);
+            return productsFrequency.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, y => y.Value);
         }
 
         public Dictionary<Type, double> GetMostCostIngredientHandlers(DateTime fromDate, DateTime toDate)
