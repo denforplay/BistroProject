@@ -5,23 +5,41 @@ using System.Linq;
 
 namespace Bistro.Lib.Models.Dishes
 {
+    /// <summary>
+    /// Represents base dish
+    /// </summary>
     public abstract class DishBase
     {
         private List<IIngredient> _ingredients;
         private double _cost;
 
+        /// <summary>
+        /// Dish base constructor
+        /// </summary>
         public DishBase()
         {
             _ingredients = new List<IIngredient>();
         }
         
+        /// <summary>
+        /// Dish constructor
+        /// </summary>
+        /// <param name="dishCost"></param>
+        /// <param name="ingredients"></param>
         public DishBase(double dishCost, List<IIngredient> ingredients)
         {
             _ingredients = ingredients;
             _cost = dishCost + ingredients.Sum(x => x.Cost);
         }
 
+        /// <summary>
+        /// Dish cost
+        /// </summary>
         public double Cost => _cost;
+        
+        /// <summary>
+        /// Dish composition
+        /// </summary>
         public IReadOnlyList<IIngredient> Ingredients;
 
         public override bool Equals(object obj)

@@ -4,10 +4,20 @@ using System.Linq;
 
 namespace Bistro.Lib.Models.Bistro.Capabilities
 {
+    /// <summary>
+    /// Production capabilities data storage
+    /// </summary>
     public sealed class ProductionCapabilities : IProductionCapabilitiesRepository
     {
+        /// <summary>
+        /// Production capabilities data
+        /// </summary>
         public Dictionary<Type, int> Capabilities { get; init; }
 
+        /// <summary>
+        /// Production capabities data storage constructor
+        /// </summary>
+        /// <param name="productionCapabilities">Production capabilities</param>
         public ProductionCapabilities(Dictionary<Type, int> productionCapabilities)
         {
             Capabilities = productionCapabilities;

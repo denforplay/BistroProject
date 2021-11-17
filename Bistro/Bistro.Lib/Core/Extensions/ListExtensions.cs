@@ -26,6 +26,14 @@ namespace Bistro.Lib.Core.Extensions
             return true;
         }
         
+        /// <summary>
+        /// Find other list in current list
+        /// </summary>
+        /// <typeparam name="T">Type of collection items</typeparam>
+        /// <param name="currentCollection">Collection where find other colliction</param>
+        /// <param name="otherCollection">Collection which must be find in current collection</param>
+        /// <returns>finded collection</returns>
+        /// <exception cref="ArgumentNullException">Throws if otherCollection is null</exception>
         public static List<T> FindList<T>(this List<T> currentCollection, List<T> otherCollection)
         {
             if (otherCollection is null)
@@ -50,6 +58,14 @@ namespace Bistro.Lib.Core.Extensions
             return findedList;
         }
 
+        /// <summary>
+        /// Check if current list is except by other list
+        /// </summary>
+        /// <typeparam name="T">Type of list items</typeparam>
+        /// <param name="currentCollection">Collection to check if except by other collection</param>
+        /// <param name="otherCollection">Other collection</param>
+        /// <returns>Returns true if collection is except by other collection other returns false</returns>
+        /// <exception cref="ArgumentNullException">Throws if other collection is null</exception>
         public static bool IsExcept<T>(this List<T> currentCollection, List<T> otherCollection)
         {
             if (otherCollection is null)
@@ -73,6 +89,14 @@ namespace Bistro.Lib.Core.Extensions
             return false;
         }
 
+
+        /// <summary>
+        /// Remove from current collection other collection
+        /// </summary>
+        /// <typeparam name="T">Type of collections items</typeparam>
+        /// <param name="currentCollection">Collection from where remove other collection</param>
+        /// <param name="otherCollection">Other collection</param>
+        /// <exception cref="ArgumentNullException">Throws if other collection is null</exception>
         public static void RemoveList<T>(this List<T> currentCollection, List<T> otherCollection)
         {
             if (otherCollection is null)

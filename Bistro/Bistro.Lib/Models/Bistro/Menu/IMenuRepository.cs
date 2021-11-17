@@ -5,6 +5,9 @@ using System;
 
 namespace Bistro.Lib.Models.Bistro.Menu
 {
+    /// <summary>
+    /// Provides menu data storage functionality
+    /// </summary>
     public interface IMenuRepository : IRepository<Type, IRecipe<DishBase>>
     {
     }

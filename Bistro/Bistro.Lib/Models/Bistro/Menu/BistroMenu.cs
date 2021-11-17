@@ -6,18 +6,31 @@ using Bistro.Lib.Models.Recipes.Base;
 
 namespace Bistro.Lib.Models.Bistro.Menu
 {
+    /// <summary>
+    /// Represent bistro dishes menu
+    /// </summary>
     public sealed class BistroMenu : IMenuRepository
     {
+        /// <summary>
+        /// Bistro menu constructor
+        /// </summary>
         public BistroMenu()
         {
             Menu = new Dictionary<Type, IRecipe<DishBase>>();
         }
 
+        /// <summary>
+        /// Bustro menu constructor
+        /// </summary>
+        /// <param name="menu">Bistro menu</param>
         public BistroMenu(Dictionary<Type, IRecipe<DishBase>> menu)
         {
             Menu = menu;
         }
 
+        /// <summary>
+        /// Dish menu
+        /// </summary>
         public Dictionary<Type, IRecipe<DishBase>> Menu { get; init; }
 
         public IRecipe<DishBase> GetByKey(Type key)

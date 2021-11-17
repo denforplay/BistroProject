@@ -8,17 +8,36 @@ using Bistro.Lib.Models.Ingredients;
 
 namespace Bistro.Lib.Models.Bistro.Storage
 {
+    /// <summary>
+    /// Represents ingredient storage
+    /// </summary>
     public sealed class IngredientStorage : IIngredientRepository
     {
+        /// <summary>
+        /// Conditions storage
+        /// </summary>
         public IConditionRepository StorageConditions { get; init; }
+        
+        /// <summary>
+        /// Ingredients
+        /// </summary>
         public Dictionary<Type, List<IIngredient>> Ingredients { get; init; }
 
+        /// <summary>
+        /// Ingredient storage constructor
+        /// </summary>
         public IngredientStorage()
         {
             StorageConditions = new StorageConditionsContainer();
             Ingredients = new Dictionary<Type, List<IIngredient>>();
         }
 
+        /// <summary>
+        /// Ingredient storage
+        /// </summary>
+        /// <param name="ingredients">Ingredients</param>
+        /// <param name="storageConditions">Storage conditions</param>
+        /// <exception cref="ArgumentNullException">Throws if storage conditions or ingredients is null</exception>
         public IngredientStorage(Dictionary<Type, List<IIngredient>> ingredients, StorageConditionsContainer storageConditions)
         {
             if (storageConditions is null)

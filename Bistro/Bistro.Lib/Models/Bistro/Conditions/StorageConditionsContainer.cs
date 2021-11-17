@@ -7,15 +7,29 @@ using System.Linq;
 
 namespace Bistro.Lib.Models.Bistro.Conditions
 {
+    /// <summary>
+    /// Represents storage condition data storage container
+    /// </summary>
     public sealed class StorageConditionsContainer : IConditionRepository
     {
+        /// <summary>
+        /// Storage conditions
+        /// </summary>
         public Dictionary<Type, List<IStorageCondition>> StorageConditions { get; init; }
 
+        /// <summary>
+        /// Storage condtions container constructor
+        /// </summary>
         public StorageConditionsContainer()
         {
             StorageConditions = new Dictionary<Type, List<IStorageCondition>>();
         }
 
+        /// <summary>
+        /// Storage conditions container
+        /// </summary>
+        /// <param name="storageConditions">Storage conditions</param>
+        /// <exception cref="ArgumentNullException">Throws if storage conditions is null</exception>
         public StorageConditionsContainer(Dictionary<Type, List<IStorageCondition>> storageConditions)
         {
             if (storageConditions is null)

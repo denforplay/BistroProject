@@ -8,19 +8,44 @@ using System.Collections.Generic;
 
 namespace Bistro.Lib.Models.Bistro
 {
+    /// <summary>
+    /// Represents kitchen
+    /// </summary>
     public sealed class Kitchen
     {
+        /// <summary>
+        /// Kitchen constructor
+        /// </summary>
+        /// <param name="chef">Chef</param>
+        /// <param name="ingredientStorage">Ingredient storage</param>
+        /// <param name="productionCapabilities">Production capabilities</param>
         public Kitchen (Chef chef, IIngredientRepository ingredientStorage, IProductionCapabilitiesRepository productionCapabilities)
         {
             Chef = chef;
             IngredientStorage = ingredientStorage;
             ProductionCapabilities = productionCapabilities;
         }
-
+        
+        /// <summary>
+        /// Ingredient repository
+        /// </summary>
         public IIngredientRepository IngredientStorage { get; init; }
+
+        /// <summary>
+        /// Chef chef
+        /// </summary>
         public Chef Chef { get; init; }
+
+        /// <summary>
+        /// Production capabilities
+        /// </summary>
         public IProductionCapabilitiesRepository ProductionCapabilities { get; init; }
 
+        /// <summary>
+        /// Cook dish by recipe method
+        /// </summary>
+        /// <param name="recipe">Recipe</param>
+        /// <returns>Cooked dish</returns>
         public DishBase CookDish(IRecipe<DishBase> recipe)
         {
             DishBase cookedDish = Chef.Cook(recipe, IngredientStorage.GetAll());
