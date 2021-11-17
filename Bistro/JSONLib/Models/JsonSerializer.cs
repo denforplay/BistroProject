@@ -1,18 +1,19 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Newtonsoft.Json;
 
 namespace JSONLib.Models
 {
-    public class JsonWorker
+    public class JsonSerializer : ISerializer
     {
         private string _filepath;
         private JsonSerializerSettings _jsonSettings = new JsonSerializerSettings
         {
             TypeNameHandling = TypeNameHandling.Auto,
-            ObjectCreationHandling = ObjectCreationHandling.Replace
+            ObjectCreationHandling = ObjectCreationHandling.Replace,
         };
 
-        public JsonWorker(string filepath)
+        public JsonSerializer(string filepath)
         {
             _filepath = filepath;
         }
@@ -29,7 +30,7 @@ namespace JSONLib.Models
         public T Deserialize<T>() where T : class
         {
             string readed = File.ReadAllText(_filepath);
-            T result = JsonConvert.DeserializeObject<T>(readed, _jsonSettings);
+            T result = JsonConvert.DeserializeObject<T>(readed, _jsonSettings) ?? throw new InvalidOperationException();
             return result;
         }
     }

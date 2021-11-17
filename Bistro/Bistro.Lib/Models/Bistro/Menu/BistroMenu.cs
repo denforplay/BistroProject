@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Bistro.Lib.Models.Dishes;
 using Bistro.Lib.Models.Recipes.Base;
 
@@ -7,41 +8,67 @@ namespace Bistro.Lib.Models.Bistro.Menu
 {
     public sealed class BistroMenu : IMenuRepository
     {
-        private readonly Dictionary<Type, IRecipe<DishBase>> _menu;
-
         public BistroMenu()
         {
-            _menu = new Dictionary<Type, IRecipe<DishBase>>();
+            Menu = new Dictionary<Type, IRecipe<DishBase>>();
         }
 
         public BistroMenu(Dictionary<Type, IRecipe<DishBase>> menu)
         {
-            _menu = menu;
+            Menu = menu;
         }
+
+        public Dictionary<Type, IRecipe<DishBase>> Menu { get; init; }
 
         public IRecipe<DishBase> GetByKey(Type key)
         {
-            return _menu[key];
+            return Menu[key];
         }
 
         public void Add(Type dishType, IRecipe<DishBase> dishRecipe)
         {
-            if (_menu.TryGetValue(dishType, out IRecipe<DishBase> _))
+            if (Menu.TryGetValue(dishType, out IRecipe<DishBase> _))
             {
                 return;
             }
 
-            _menu.Add(dishType, dishRecipe);
+            Menu.Add(dishType, dishRecipe);
         }
 
         public void Delete(Type dishType, IRecipe<DishBase> dishRecipe)
         {
-            if (_menu.TryGetValue(dishType, out IRecipe<DishBase> _))
+            if (Menu.TryGetValue(dishType, out IRecipe<DishBase> _))
             {
                 return;
             }
 
-            _menu.Remove(dishType);
+            Menu.Remove(dishType);
+        }
+
+        public override int GetHashCode()
+        {
+            int hash = 1728;
+            foreach(var value in Menu.Values)
+            {
+                hash += value.GetHashCode();
+            }
+
+            return hash;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is BistroMenu otherMenu)
+            {
+                return Enumerable.SequenceEqual(Menu, otherMenu.Menu);
+            }
+
+            return false;
+        }
+
+        public override string ToString()
+        {
+            return "Bistro menu";
         }
     }
 }

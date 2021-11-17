@@ -7,6 +7,6 @@ namespace Bistro.Lib.Models.Bistro.Conditions
 {
     public interface IConditionRepository : IRepository<Type, List<IStorageCondition>>
     {
-        
+        public List<IStorageCondition> GetAll();
     }
 }

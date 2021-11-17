@@ -12,6 +12,7 @@ namespace Bistro.Lib.Models.Dishes
 
         public DishBase()
         {
+            _ingredients = new List<IIngredient>();
         }
         
         public DishBase(double dishCost, List<IIngredient> ingredients)

@@ -45,6 +45,15 @@ namespace Bistro.Lib.Models.IngredientsHandlers.Base
             Ingredients.ForEach(i => i.Cost += Cost);
         }
 
+        public override int GetHashCode()
+        {
+            int hash = 1222;
+            hash += 44 * Duration.GetHashCode();
+            hash += 44 * Cost.GetHashCode();
+            _ingredients.ForEach(x => hash += 33 * x.GetHashCode());
+            return hash;
+        }
+
         public override bool Equals(object obj)
         {
             if (obj is IngredientHandlerBase ingredientHandler)
@@ -54,6 +63,11 @@ namespace Bistro.Lib.Models.IngredientsHandlers.Base
             }
 
             return false;
+        }
+
+        public override string ToString()
+        {
+            return $"{GetType().Name}";
         }
     }
 }

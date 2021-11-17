@@ -3,33 +3,44 @@ using Bistro.Lib.Models.IngredientsHandlers.Base;
 using Bistro.Lib.Models.StorageConditions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Bistro.Lib.Models.Bistro.Conditions
 {
     public sealed class StorageConditionsContainer : IConditionRepository
     {
-        private Dictionary<Type, List<IStorageCondition>> _storageConditions;
+        public Dictionary<Type, List<IStorageCondition>> StorageConditions { get; init; }
+
+        public StorageConditionsContainer()
+        {
+            StorageConditions = new Dictionary<Type, List<IStorageCondition>>();
+        }
 
         public StorageConditionsContainer(Dictionary<Type, List<IStorageCondition>> storageConditions)
         {
-            _storageConditions = storageConditions;
+            if (storageConditions is null)
+            {
+                throw new ArgumentNullException(nameof(storageConditions));
+            }
+
+            StorageConditions = storageConditions;
         }
 
         public void Add(Type entity, List<IStorageCondition> conditionsToAdd)
         {
-            if (_storageConditions.TryGetValue(entity, out List<IStorageCondition> conditions))
+            if (StorageConditions.TryGetValue(entity, out List<IStorageCondition> conditions))
             {
                 conditions.AddRange(conditionsToAdd);
             }
             else
             {
-                _storageConditions.Add(entity, conditionsToAdd);
+                StorageConditions.Add(entity, conditionsToAdd);
             }
         }
 
         public void Delete(Type entity, List<IStorageCondition> entityCount)
         {
-            if (_storageConditions.TryGetValue(entity, out List<IStorageCondition> conditions))
+            if (StorageConditions.TryGetValue(entity, out List<IStorageCondition> conditions))
             {
                 conditions.RemoveList(entityCount);
             }
@@ -38,7 +49,7 @@ namespace Bistro.Lib.Models.Bistro.Conditions
         public List<IStorageCondition> GetAll()
         {
             List<IStorageCondition> storageConditions = new List<IStorageCondition>();
-            foreach (var value in _storageConditions.Values)
+            foreach (var value in StorageConditions.Values)
             {
                 storageConditions.AddRange(value);
             }
@@ -48,7 +59,7 @@ namespace Bistro.Lib.Models.Bistro.Conditions
 
         public List<IStorageCondition> GetByKey(Type key)
         {
-            return _storageConditions[key];
+            return StorageConditions[key];
         }
     }
 }

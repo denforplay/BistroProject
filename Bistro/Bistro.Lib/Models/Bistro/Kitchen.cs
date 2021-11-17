@@ -8,23 +8,29 @@ using System.Collections.Generic;
 
 namespace Bistro.Lib.Models.Bistro
 {
-    public class Kitchen
+    public sealed class Kitchen
     {
-        private Chef _chef;
-        private IProductionCapabilitiesRepository _productionCapabilities;
-
         public Kitchen (Chef chef, IIngredientRepository ingredientStorage, IProductionCapabilitiesRepository productionCapabilities)
         {
-            _chef = chef;
+            Chef = chef;
             IngredientStorage = ingredientStorage;
-            _productionCapabilities = productionCapabilities;
+            ProductionCapabilities = productionCapabilities;
         }
 
-        public IIngredientRepository IngredientStorage { get; set; }
+        public IIngredientRepository IngredientStorage { get; init; }
+        public Chef Chef { get; init; }
+        public IProductionCapabilitiesRepository ProductionCapabilities { get; init; }
 
         public DishBase CookDish(IRecipe<DishBase> recipe)
         {
-            return _chef.Cook(recipe, IngredientStorage.GetAll());
+            DishBase cookedDish = Chef.Cook(recipe, IngredientStorage.GetAll());
+
+            foreach (var ingredient in recipe.Composition)
+            {
+                IngredientStorage.Delete(ingredient.GetType().BaseType, new List<IIngredient> { ingredient });
+            }
+
+            return cookedDish;
         }
     }
 }

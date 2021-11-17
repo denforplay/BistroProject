@@ -11,8 +11,8 @@ namespace Bistro.Lib.Models.Recipes.Base
 {
     public abstract class RecipeBase<T> : IRecipe<T> where T : DishBase
     {
-        public List<IIngredient> Composition { get; set; }
-        public Queue<IIngredientsHandler> CookingSequence { get; set; }
+        public List<IIngredient> Composition { get; init; }
+        public Queue<IIngredientsHandler> CookingSequence { get; init; }
 
         public RecipeBase()
         {

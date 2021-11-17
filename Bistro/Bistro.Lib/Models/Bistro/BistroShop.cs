@@ -11,35 +11,53 @@ using Bistro.Lib.Core.Extensions;
 using Bistro.Lib.Models.Bistro.Menu;
 using Bistro.Lib.Models.Bistro.Storage;
 using Bistro.Lib.Models.Recipes.SaladRecipes;
+using Bistro.Lib.Models.Ingredients.Vegetables;
 
 namespace Bistro.Lib.Models.Bistro
 {
     public sealed class BistroShop
     {
-        private Manager _manager;
-        private Kitchen _kitchen;
-        private List<DishBase> _readyDishes;
-        private BistroMenu _menu;
+        public Manager Manager { get; set; }
+        public Kitchen Kitchen { get; set; }
+        public List<DishBase> ReadyDishes { get; set; }
+        public BistroMenu Menu { get; set; }
 
         public BistroShop(Kitchen kitchen, BistroMenu menu)
         {
-            _manager = new Manager();
-            _kitchen = kitchen;
-            _menu = menu;
+            ReadyDishes = new List<DishBase>();
+            var ingredients = new List<IIngredient> { new Tomato(5, 5) };
+            var dish = new Salad(5, ingredients);
+            Manager = new Manager();
+            Kitchen = kitchen;
+            Menu = menu;
         }
 
         public void TakeOrder(Order order)
         {
-            _manager.TakeOrder(order);
+            Manager.TakeOrder(order);
+        }
+
+        public List<DishBase> CompleteOrder()
+        {
+            Manager.Orders.Last();
+            List<DishBase> cookedDishes = new List<DishBase>();
+            foreach(var dishType in Manager.Orders.Last().DishTypes)
+            {
+                cookedDishes.Add(Kitchen.CookDish(Menu.GetByKey(dishType)));
+            }
+
+            ReadyDishes.AddRange(cookedDishes);
+            Manager.Orders.RemoveAt(Manager.Orders.Count() - 1);
+            return cookedDishes;
         }
 
         public Dictionary<Type, int> GetFrequencyProductsUse()
         {
             var productsFrequency = new Dictionary<Type, int>();
 
-            foreach (var order in _manager.Orders)
+            foreach (var order in Manager.Orders)
                 foreach (var dishType in order.DishTypes)
-                    foreach (var ingridient in _menu.GetByKey(dishType).Composition)
+                    foreach (var ingridient in Menu.GetByKey(dishType).Composition)
                         if (productsFrequency.TryGetValue(ingridient.GetType(), out _))
                         {
                             productsFrequency[ingridient.GetType()] += 1;
@@ -56,10 +74,10 @@ namespace Bistro.Lib.Models.Bistro
         {
             var expensesOnIngredientHandlers = new Dictionary<Type, double>();
 
-            foreach(var order in FindAllOrders(fromDate, toDate))
+            foreach(var order in Manager.FindAllOrders(fromDate, toDate))
                 foreach(var dishtype in order.DishTypes)
                 {
-                    _menu.GetByKey(dishtype).CookingSequence.ToList().ForEach(x =>
+                    Menu.GetByKey(dishtype).CookingSequence.ToList().ForEach(x =>
                     {
                         if (expensesOnIngredientHandlers.TryGetValue(x.GetType(), out double value))
                         {
@@ -77,10 +95,10 @@ namespace Bistro.Lib.Models.Bistro
         public Dictionary<Type, double> GetExpensesOnCooking(DateTime fromDate, DateTime toDate)
         {
             var expensesOnCooking = new Dictionary<Type, double>();
-            foreach (var order in FindAllOrders(fromDate, toDate))
+            foreach (var order in Manager.FindAllOrders(fromDate, toDate))
                 foreach (var dishtype in order.DishTypes)
                 {
-                    double dishCost = _menu.GetByKey(dishtype).CookingSequence.ToList().Sum(x => x.Duration);
+                    double dishCost = Menu.GetByKey(dishtype).CookingSequence.ToList().Sum(x => x.Duration);
                     if (expensesOnCooking.TryGetValue(dishtype, out double _))
                     {
                         expensesOnCooking[dishtype] += dishCost;
@@ -90,23 +108,19 @@ namespace Bistro.Lib.Models.Bistro
             return expensesOnCooking;
         }
 
-        public List<Order> FindAllOrders(DateTime fromDate, DateTime toDate)
-        {
-            return _manager.Orders.Where(order => order.OrderTime.CompareTo(fromDate) > 1 && order.OrderTime.CompareTo(toDate) < 1).ToList();
-        }
 
         public List<IIngredient> FindIngredients(List<IStorageCondition> storageCondition)
         {
-            return _kitchen.IngredientStorage.GetAll().FindAll(i => i.StoreConditions.IsExcept(storageCondition));
+            return Kitchen.IngredientStorage.GetAll().FindAll(i => i.StoreConditions.IsExcept(storageCondition));
         }
 
         public void SellDish(DishBase dish)
         {
-            DishBase findedDish = _readyDishes.Find(x => x.Equals(dish));
+            DishBase findedDish = ReadyDishes.Find(x => x.Equals(dish));
             if (findedDish is not null)
             {
                 //_profit += findedDish.Cost;
-                _readyDishes.Remove(findedDish);
+                ReadyDishes.Remove(findedDish);
             }
             else
             {

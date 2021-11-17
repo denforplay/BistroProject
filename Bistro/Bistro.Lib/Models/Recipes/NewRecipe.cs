@@ -4,8 +4,6 @@ using Bistro.Lib.Models.Dishes;
 using Bistro.Lib.Models.Ingredients;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Bistro.Lib.Models.IngredientsHandlers;
 using Bistro.Lib.Models.IngredientsHandlers.Base;
 using Bistro.Lib.Models.Recipes.Base;
 
@@ -13,7 +11,11 @@ namespace Bistro.Lib.Models.Recipes
 {
     public sealed class NewRecipe : RecipeBase<NewDish>
     {
-        private string _dishName;
+        public string DishName { get; set; }
+
+        public NewRecipe()
+        {
+        }
 
         public NewRecipe(List<IIngredient> composition, Queue<IIngredientsHandler> cookingSequence, string dishName)
         {
@@ -34,7 +36,7 @@ namespace Bistro.Lib.Models.Recipes
 
             Composition = composition;
             CookingSequence = cookingSequence;
-            _dishName = dishName;
+            DishName = dishName;
         }
 
         public override NewDish Use(List<IIngredient> ingredients)
@@ -44,7 +46,7 @@ namespace Bistro.Lib.Models.Recipes
                 throw new ArgumentNullException();
             }
 
-            return new NewDish(5, CookIngredients(ingredients), _dishName);
+            return new NewDish(5, CookIngredients(ingredients), DishName);
         }
     }
 }

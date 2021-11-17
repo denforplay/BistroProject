@@ -10,8 +10,14 @@ namespace Bistro.Lib.Models.Bistro.Storage
 {
     public sealed class IngredientStorage : IIngredientRepository
     {
-        private StorageConditionsContainer _storageConditions;
-        private Dictionary<Type, List<IIngredient>> _ingredients;
+        public IConditionRepository StorageConditions { get; init; }
+        public Dictionary<Type, List<IIngredient>> Ingredients { get; init; }
+
+        public IngredientStorage()
+        {
+            StorageConditions = new StorageConditionsContainer();
+            Ingredients = new Dictionary<Type, List<IIngredient>>();
+        }
 
         public IngredientStorage(Dictionary<Type, List<IIngredient>> ingredients, StorageConditionsContainer storageConditions)
         {
@@ -25,22 +31,22 @@ namespace Bistro.Lib.Models.Bistro.Storage
                 throw new ArgumentNullException(nameof(ingredients));
             }
 
-            _storageConditions = storageConditions;
-            _ingredients = ingredients;
+            StorageConditions = storageConditions;
+            Ingredients = ingredients;
         }
 
         public void Add(Type entity, List<IIngredient> ingredients)
         {
-            if (ingredients.TrueForAll(i => i.StoreConditions.Any(s => _storageConditions.GetAll().Any(x => x.Equals(s)))))
+            if (ingredients.TrueForAll(i => i.StoreConditions.Any(s => StorageConditions.GetAll().Any(x => x.Equals(s)))))
             {
-                if (_ingredients.TryGetValue(entity, out List<IIngredient> findedIngredients))
+                if (Ingredients.TryGetValue(entity, out List<IIngredient> findedIngredients))
                 {
                     findedIngredients.AddRange(ingredients);
                 }
                 else
                 {
 
-                    _ingredients.Add(entity, ingredients);
+                    Ingredients.Add(entity, ingredients);
                 }
             }
             else
@@ -52,7 +58,7 @@ namespace Bistro.Lib.Models.Bistro.Storage
 
         public void Delete(Type entity, List<IIngredient> ingredient)
         {
-            if (_ingredients.TryGetValue(entity, out List<IIngredient> findedIngredients))
+            if (Ingredients.TryGetValue(entity, out List<IIngredient> findedIngredients))
             {
                 findedIngredients.RemoveList(ingredient);
             }
@@ -61,7 +67,7 @@ namespace Bistro.Lib.Models.Bistro.Storage
         public List<IIngredient> GetAll()
         {
             List<IIngredient> allIngredients = new List<IIngredient>();
-            foreach (var key in _ingredients.Keys)
+            foreach (var key in Ingredients.Keys)
             {
                 allIngredients.AddRange(GetByKey(key));
             }
@@ -71,7 +77,7 @@ namespace Bistro.Lib.Models.Bistro.Storage
 
         public List<IIngredient> GetByKey(Type key)
         {
-            return _ingredients[key];
+            return Ingredients[key];
         }
     }
 }

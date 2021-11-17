@@ -8,8 +8,8 @@ namespace Bistro.Lib.Models.Recipes.Base
 {
     public interface IRecipe<out T> where T : DishBase
     {
-        List<IIngredient> Composition { get; set; }
-        Queue<IIngredientsHandler> CookingSequence { get; set; }
+        List<IIngredient> Composition { get; init; }
+        Queue<IIngredientsHandler> CookingSequence { get; init; }
         T Use(List<IIngredient> ingredients);
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Bistro.Lib.Models.StorageConditions;
 using System.Collections.Generic;
-using Bistro.Lib.Models.IngredientsHandlers;
 using Bistro.Lib.Models.IngredientsHandlers.Base;
 
 namespace Bistro.Lib.Models.Ingredients
