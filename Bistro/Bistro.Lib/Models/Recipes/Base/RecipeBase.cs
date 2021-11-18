@@ -13,7 +13,7 @@ namespace Bistro.Lib.Models.Recipes.Base
     /// Represents recipe base fuctionality
     /// </summary>
     /// <typeparam name="T">Type of cooking dish</typeparam>
-    public abstract class RecipeBase<T> : IRecipe<T> where T : DishBase
+    public abstract class RecipeBase<T> : IRecipe<T> where T : ProductBase
     {
         /// <summary>
         /// Composition of cooked dish

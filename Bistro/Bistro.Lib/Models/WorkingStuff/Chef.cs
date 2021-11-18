@@ -22,7 +22,7 @@ namespace Bistro.Lib.Models.WorkingStuff
         /// <param name="ingredients">Ingredients from which cook dish</param>
         /// <returns>Cooked dish</returns>
         /// <exception cref="ArgumentNullException">Throws if recipe or ingredients are null</exception>
-        public T Cook<T>(IRecipe<T> recipe, List<IIngredient> ingredients) where T : DishBase
+        public T Cook<T>(IRecipe<T> recipe, List<IIngredient> ingredients) where T : ProductBase
         {
             if (recipe is null)
             {

@@ -30,7 +30,7 @@ namespace Bistro.Lib.Models.Bistro
         /// <summary>
         /// Cooked dishes
         /// </summary>
-        public List<DishBase> ReadyDishes { get; set; }
+        public List<ProductBase> ReadyDishes { get; set; }
 
         /// <summary>
         /// Bistro dishes menu
@@ -45,7 +45,7 @@ namespace Bistro.Lib.Models.Bistro
         /// <param name="menu"></param>
         public BistroShop(Kitchen kitchen, BistroMenu menu)
         {
-            ReadyDishes = new List<DishBase>();
+            ReadyDishes = new List<ProductBase>();
             var ingredients = new List<IIngredient> { new Tomato(5, 5) };
             var dish = new Salad(5, ingredients);
             Manager = new Manager();
@@ -66,10 +66,10 @@ namespace Bistro.Lib.Models.Bistro
         /// Complete order method
         /// </summary>
         /// <returns></returns>
-        public List<DishBase> CompleteOrder()
+        public List<ProductBase> CompleteOrder()
         {
             Manager.Orders.Last();
-            List<DishBase> cookedDishes = new List<DishBase>();
+            List<ProductBase> cookedDishes = new List<ProductBase>();
             foreach(var dishType in Manager.Orders.Last().DishTypes)
             {
                 cookedDishes.Add(Kitchen.CookDish(Menu.GetByKey(dishType)));
@@ -168,9 +168,9 @@ namespace Bistro.Lib.Models.Bistro
         /// </summary>
         /// <param name="dish">Dish to sell</param>
         /// <exception cref="ArgumentNullException">Throw null if there are no such dish</exception>
-        public void SellDish(DishBase dish)
+        public void SellDish(ProductBase dish)
         {
-            DishBase findedDish = ReadyDishes.Find(x => x.Equals(dish));
+            ProductBase findedDish = ReadyDishes.Find(x => x.Equals(dish));
             if (findedDish is not null)
             {
                 //_profit += findedDish.Cost;

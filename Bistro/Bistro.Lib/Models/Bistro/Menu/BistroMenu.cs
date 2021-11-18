@@ -16,14 +16,14 @@ namespace Bistro.Lib.Models.Bistro.Menu
         /// </summary>
         public BistroMenu()
         {
-            Menu = new Dictionary<Type, IRecipe<DishBase>>();
+            Menu = new Dictionary<Type, IRecipe<ProductBase>>();
         }
 
         /// <summary>
         /// Bustro menu constructor
         /// </summary>
         /// <param name="menu">Bistro menu</param>
-        public BistroMenu(Dictionary<Type, IRecipe<DishBase>> menu)
+        public BistroMenu(Dictionary<Type, IRecipe<ProductBase>> menu)
         {
             Menu = menu;
         }
@@ -31,16 +31,16 @@ namespace Bistro.Lib.Models.Bistro.Menu
         /// <summary>
         /// Dish menu
         /// </summary>
-        public Dictionary<Type, IRecipe<DishBase>> Menu { get; init; }
+        public Dictionary<Type, IRecipe<ProductBase>> Menu { get; init; }
 
-        public IRecipe<DishBase> GetByKey(Type key)
+        public IRecipe<ProductBase> GetByKey(Type key)
         {
             return Menu[key];
         }
 
-        public void Add(Type dishType, IRecipe<DishBase> dishRecipe)
+        public void Add(Type dishType, IRecipe<ProductBase> dishRecipe)
         {
-            if (Menu.TryGetValue(dishType, out IRecipe<DishBase> _))
+            if (Menu.TryGetValue(dishType, out IRecipe<ProductBase> _))
             {
                 return;
             }
@@ -48,9 +48,9 @@ namespace Bistro.Lib.Models.Bistro.Menu
             Menu.Add(dishType, dishRecipe);
         }
 
-        public void Delete(Type dishType, IRecipe<DishBase> dishRecipe)
+        public void Delete(Type dishType, IRecipe<ProductBase> dishRecipe)
         {
-            if (Menu.TryGetValue(dishType, out IRecipe<DishBase> _))
+            if (Menu.TryGetValue(dishType, out IRecipe<ProductBase> _))
             {
                 return;
             }
