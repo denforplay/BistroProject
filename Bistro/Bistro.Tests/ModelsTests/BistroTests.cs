@@ -38,7 +38,7 @@ namespace Bistro.Tests.ModelsTests
             {typeof(Boiling), 10},
         });
 
-        private BistroMenu _bistroMenu = new BistroMenu(new Dictionary<Type, IRecipe<DishBase>>
+        private BistroMenu _bistroMenu = new BistroMenu(new Dictionary<Type, IRecipe<ProductBase>>
         {
             { typeof(ChickenSaladRecipe), new ChickenSaladRecipe()},
             { typeof(VegetableSaladRecipe), new VegetableSaladRecipe()},

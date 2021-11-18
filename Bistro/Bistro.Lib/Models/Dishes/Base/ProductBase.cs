@@ -6,9 +6,9 @@ using System.Linq;
 namespace Bistro.Lib.Models.Dishes
 {
     /// <summary>
-    /// Represents base dish
+    /// Represents base product
     /// </summary>
-    public abstract class DishBase
+    public abstract class ProductBase
     {
         private List<IIngredient> _ingredients;
         private double _cost;
@@ -16,7 +16,7 @@ namespace Bistro.Lib.Models.Dishes
         /// <summary>
         /// Dish base constructor
         /// </summary>
-        public DishBase()
+        public ProductBase()
         {
             _ingredients = new List<IIngredient>();
         }
@@ -24,12 +24,12 @@ namespace Bistro.Lib.Models.Dishes
         /// <summary>
         /// Dish constructor
         /// </summary>
-        /// <param name="dishCost"></param>
+        /// <param name="productCost"></param>
         /// <param name="ingredients"></param>
-        public DishBase(double dishCost, List<IIngredient> ingredients)
+        public ProductBase(double productCost, List<IIngredient> ingredients)
         {
             _ingredients = ingredients;
-            _cost = dishCost + ingredients.Sum(x => x.Cost);
+            _cost = productCost + ingredients.Sum(x => x.Cost);
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace Bistro.Lib.Models.Dishes
 
         public override bool Equals(object obj)
         {
-            if (obj is DishBase dish)
+            if (obj is ProductBase dish)
             {
                 return dish._cost == _cost
                     && _ingredients.IsEqual(dish._ingredients);

@@ -6,7 +6,7 @@ namespace Bistro.Lib.Models.Dishes
     /// <summary>
     /// Represents new dish
     /// </summary>
-    public sealed class NewDish : DishBase
+    public sealed class NewDish : ProductBase
     {
         private string _dishName;
 

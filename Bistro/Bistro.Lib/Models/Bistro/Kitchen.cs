@@ -46,9 +46,9 @@ namespace Bistro.Lib.Models.Bistro
         /// </summary>
         /// <param name="recipe">Recipe</param>
         /// <returns>Cooked dish</returns>
-        public DishBase CookDish(IRecipe<DishBase> recipe)
+        public ProductBase CookDish(IRecipe<ProductBase> recipe)
         {
-            DishBase cookedDish = Chef.Cook(recipe, IngredientStorage.GetAll());
+            ProductBase cookedDish = Chef.Cook(recipe, IngredientStorage.GetAll());
 
             foreach (var ingredient in recipe.Composition)
             {

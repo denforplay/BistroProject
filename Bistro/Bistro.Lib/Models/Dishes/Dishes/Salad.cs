@@ -6,7 +6,7 @@ namespace Bistro.Lib.Models.Dishes
     /// <summary>
     /// Represents salad type dishes
     /// </summary>
-    public sealed class Salad : DishBase
+    public sealed class Salad : ProductBase
     {
         /// <summary>
         /// Salad constructor

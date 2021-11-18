@@ -127,7 +127,7 @@ namespace Bistro.JSONWorker.Tests
                     {typeof(SauсeBase), new List<IIngredient> { new Ketchup(5, 5), } }
                     }, _storageConditions);
 
-            BistroMenu menu = new BistroMenu(new Dictionary<Type, IRecipe<DishBase>>
+            BistroMenu menu = new BistroMenu(new Dictionary<Type, IRecipe<ProductBase>>
             {
                 {typeof(VegetableSaladRecipe), new VegetableSaladRecipe() },
 
