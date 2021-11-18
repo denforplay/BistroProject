@@ -5,10 +5,16 @@ using Bistro.Lib.Models.Ingredients;
 
 namespace Bistro.Lib.Models.IngredientsHandlers.Base
 {
+    /// <summary>
+    /// Represents base ingredient handler fuctionality
+    /// </summary>
     public abstract class IngredientHandlerBase : IIngredientsHandler
     {
         private List<IIngredient> _ingredients;
 
+        /// <summary>
+        /// Ingredient handler default constructor
+        /// </summary>
         public IngredientHandlerBase()
         {
             Cost = 0;
@@ -16,6 +22,12 @@ namespace Bistro.Lib.Models.IngredientsHandlers.Base
             _ingredients = new List<IIngredient>();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cost"></param>
+        /// <param name="duration"></param>
+        /// <param name="ingredients"></param>
         public IngredientHandlerBase(double cost, double duration, List<IIngredient> ingredients)
         {
             Ingredients = ingredients;
@@ -23,6 +35,9 @@ namespace Bistro.Lib.Models.IngredientsHandlers.Base
             Duration = duration;
         }
         
+        /// <summary>
+        /// List of ingredients to handle property
+        /// </summary>
         public List<IIngredient> Ingredients
         {
             get => _ingredients;
@@ -38,8 +53,20 @@ namespace Bistro.Lib.Models.IngredientsHandlers.Base
                 }
             }
         }
+
+        /// <summary>
+        /// Handler cost
+        /// </summary>
         public double Cost { get; init; }
+
+        /// <summary>
+        /// Handler duration
+        /// </summary>
         public double Duration { get; init; }
+
+        /// <summary>
+        /// Handle operation
+        /// </summary>
         public virtual void Handle()
         {
             Ingredients.ForEach(i => i.Cost += Cost);

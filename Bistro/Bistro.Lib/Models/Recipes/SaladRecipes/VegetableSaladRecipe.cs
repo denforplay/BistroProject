@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Bistro.Lib.Core.Exceptions;
-using Bistro.Lib.Core.Extensions;
 using Bistro.Lib.Models.Dishes;
 using Bistro.Lib.Models.Ingredients;
 using Bistro.Lib.Models.Ingredients.Sauses;
@@ -12,8 +9,14 @@ using Bistro.Lib.Models.Recipes.Base;
 
 namespace Bistro.Lib.Models.Recipes.SaladRecipes
 {
+    /// <summary>
+    /// Represents vegetable salad recipe
+    /// </summary>
     public sealed class VegetableSaladRecipe : RecipeBase<Salad>
     {
+        /// <summary>
+        /// Vegetable salad recipe default constructor
+        /// </summary>
         public VegetableSaladRecipe()
         {
             Composition = new List<IIngredient>

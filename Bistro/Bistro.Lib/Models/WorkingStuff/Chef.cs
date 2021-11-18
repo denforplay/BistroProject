@@ -9,8 +9,19 @@ using Bistro.Lib.Models.Recipes.Base;
 
 namespace Bistro.Lib.Models.WorkingStuff
 {
+    /// <summary>
+    /// Represents chef
+    /// </summary>
     public sealed class Chef
     {
+        /// <summary>
+        /// Method for cooking new dish using recipe
+        /// </summary>
+        /// <typeparam name="T">Type of cooking dish</typeparam>
+        /// <param name="recipe">Recipe of cooking dish</param>
+        /// <param name="ingredients">Ingredients from which cook dish</param>
+        /// <returns>Cooked dish</returns>
+        /// <exception cref="ArgumentNullException">Throws if recipe or ingredients are null</exception>
         public T Cook<T>(IRecipe<T> recipe, List<IIngredient> ingredients) where T : DishBase
         {
             if (recipe is null)
@@ -26,7 +37,14 @@ namespace Bistro.Lib.Models.WorkingStuff
             return recipe.Use(ingredients);
         }
 
-
+        /// <summary>
+        /// Create new recipe method
+        /// </summary>
+        /// <param name="composition">Composition of new dish</param>
+        /// <param name="cookingSequence">Cooking sequence of cooked dish</param>
+        /// <param name="dishName">New dish name</param>
+        /// <returns>New recipe</returns>
+        /// <exception cref="ArgumentNullException">Throw if composition, cooking sequence or name is null</exception>
         public RecipeBase<NewDish> CreateNewRecipe(List<IIngredient> composition, Queue<IIngredientsHandler> cookingSequence, string dishName)
         {
             if (composition is null || composition.Count == 0)

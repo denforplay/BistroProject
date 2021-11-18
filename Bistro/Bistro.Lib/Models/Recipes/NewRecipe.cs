@@ -11,12 +11,25 @@ namespace Bistro.Lib.Models.Recipes
 {
     public sealed class NewRecipe : RecipeBase<NewDish>
     {
+        /// <summary>
+        /// Name of cooking dish
+        /// </summary>
         public string DishName { get; set; }
 
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public NewRecipe()
         {
         }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="composition">Composition of new dish</param>
+        /// <param name="cookingSequence">New dish cooking sequence</param>
+        /// <param name="dishName">Name of dish</param>
+        /// <exception cref="ArgumentNullException">Throws if composition or cooking sequence is null</exception>
         public NewRecipe(List<IIngredient> composition, Queue<IIngredientsHandler> cookingSequence, string dishName)
         {
             if (composition is null || composition.Count == 0)

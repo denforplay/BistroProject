@@ -9,8 +9,14 @@ using Bistro.Lib.Models.Recipes.Base;
 
 namespace Bistro.Lib.Models.Recipes.SaladRecipes
 {
+    /// <summary>
+    /// Represents chicken salad recipe
+    /// </summary>
     public sealed class ChickenSaladRecipe : RecipeBase<Salad>
     {
+        /// <summary>
+        /// Chicken salad default constructor
+        /// </summary>
         public ChickenSaladRecipe()
         {
             Composition = new List<IIngredient>

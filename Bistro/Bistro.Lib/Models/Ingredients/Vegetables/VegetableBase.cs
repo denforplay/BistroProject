@@ -5,13 +5,36 @@ using Bistro.Lib.Models.IngredientsHandlers.Base;
 
 namespace Bistro.Lib.Models.Ingredients.Vegetables
 {
+    /// <summary>
+    /// Represents vegetable base
+    /// </summary>
     public abstract class VegetableBase : IIngredient
     {
+        /// <summary>
+        /// Ingrdient handlers
+        /// </summary>
         public List<IIngredientsHandler> IngredientHandlers { get; init; }
+
+        /// <summary>
+        /// Ingredient cost
+        /// </summary>
         public double Cost { get; set; }
+
+        /// <summary>
+        /// Store conditions
+        /// </summary>
         public List<IStorageCondition> StoreConditions { get; init; }
+
+        /// <summary>
+        /// Ingredient weight
+        /// </summary>
         public double Weight { get; set; }
 
+        /// <summary>
+        /// Vegetable base constructor
+        /// </summary>
+        /// <param name="cost">Vegetable cost</param>
+        /// <param name="weight">Vegetable weight</param>
         public VegetableBase(double cost, double weight)
         {
             Cost = cost;

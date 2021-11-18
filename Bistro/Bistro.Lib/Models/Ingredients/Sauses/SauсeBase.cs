@@ -5,13 +5,36 @@ using Bistro.Lib.Models.IngredientsHandlers.Base;
 
 namespace Bistro.Lib.Models.Ingredients.Sauses
 {
+    /// <summary>
+    /// Represents sause base
+    /// </summary>
     public abstract class SauсeBase : IIngredient
     {
+        /// <summary>
+        /// Sauce store conditions
+        /// </summary>
         public List<IStorageCondition> StoreConditions { get; init; }
+
+        /// <summary>
+        /// Sauce ingredient handlers
+        /// </summary>
         public List<IIngredientsHandler> IngredientHandlers { get; init; }
+
+        /// <summary>
+        /// Sauce cost
+        /// </summary>
         public double Cost { get; set; }
+
+        /// <summary>
+        /// Sauce weight
+        /// </summary>
         public double Weight { get; set; }
 
+        /// <summary>
+        /// Sauce base constructor
+        /// </summary>
+        /// <param name="cost">Sauce cost</param>
+        /// <param name="weight">Sauce weight</param>
         public SauсeBase(double cost, double weight)
         {
             Cost = cost;

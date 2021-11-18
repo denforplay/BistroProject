@@ -6,12 +6,36 @@ using Bistro.Lib.Models.IngredientsHandlers.Base;
 
 namespace Bistro.Lib.Models.Ingredients.Meat
 {
+    /// <summary>
+    /// Represents meat base
+    /// </summary>
     public abstract class MeatBase : IIngredient
     {
+        /// <summary>
+        /// Meet store conditions
+        /// </summary>
         public List<IStorageCondition> StoreConditions { get; init; }
+
+        /// <summary>
+        /// Meat hanglers
+        /// </summary>
         public List<IIngredientsHandler> IngredientHandlers { get; init; }
+
+        /// <summary>
+        /// Meat cost
+        /// </summary>
         public double Cost { get; set; }
+
+        /// <summary>
+        /// Meat weight
+        /// </summary>
         public double Weight { get; set; }
+
+        /// <summary>
+        /// Meat base constructor
+        /// </summary>
+        /// <param name="cost">Meat cost</param>
+        /// <param name="weight">Meat weight</param>
         public MeatBase(double cost, double weight)
         {
             Cost = cost;
